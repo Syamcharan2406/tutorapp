@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url("data:image/svg+xml,%3Csvg width='1512' height='6397' viewBox='0 0 1512 6397' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_243_2)'%3E%3Crect width='1512' height='6397' fill='%230c0c0c' /%3E%3Cg opacity='0.4' filter='url(%23filter0_f_243_2)'%3E%3Cpath d='M387.38 137.553C355.297 -107.774 513.625 -371.892 752.935 -403.188C992.246 -434.485 1087.35 -273.117 1119.44 -27.7906C1151.52 217.536 993.208 -36.6224 796.88 -10.947C557.569 20.3495 419.463 382.88 387.38 137.553Z' fill='%2324cfa7' /%3E%3C/g%3E%3Cg filter='url(%23filter1_f_243_2)'%3E%3Ccircle cx='15' cy='3176' r='185' fill='%2324cfa7' /%3E%3C/g%3E%3Cg filter='url(%23filter2_f_243_2)'%3E%3Ccircle cx='1275' cy='840' r='64' fill='%2324cfa7' /%3E%3C/g%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f_243_2' x='239.258' y='-551.062' width='1028.33' height='917.31' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix' /%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' /%3E%3CfeGaussianBlur stdDeviation='72' result='effect1_foregroundBlur_243_2' /%3E%3C/filter%3E%3Cfilter id='filter1_f_243_2' x='-774' y='2387' width='1578' height='1578' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix' /%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' /%3E%3CfeGaussianBlur stdDeviation='302' result='effect1_foregroundBlur_243_2' /%3E%3C/filter%3E%3Cfilter id='filter2_f_243_2' x='967' y='532' width='616' height='616' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix' /%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' /%3E%3CfeGaussianBlur stdDeviation='122' result='effect1_foregroundBlur_243_2' /%3E%3C/filter%3E%3CclipPath id='clip0_243_2'%3E%3Crect width='1512' height='6397' fill='white' /%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; /* Prevent repetition */
+            background-position: center; /* Center the background image */
+            color: #f8f9fa; /* Light text color for contrast */
+        }
+
+        .COURSE-CONTAINER {
+            margin-top: 50px;
+            background-color: rgba(34, 34, 34, 0.8); /* Dark semi-transparent background */
+            border-radius: 10px; /* Rounded corners for the container */
+            padding: 20px; /* Padding around the container */
+        }
+
+        .card {
+            border: none; /* Remove border */
+            background-color: transparent; /* Make card background transparent */
+        }
+
+        .cart-item {
+            background-color: rgba(255, 255, 255, 0.1); /* Transparent white for cart items */
+            border-radius: 8px; /* Rounded corners for cart items */
+            padding: 15px; /* Padding for cart items */
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item img {
+            max-width: 120px; /* Adjust width for better layout */
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+
+        .course-details h5 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #e7e7e7; /* Light color for course name for contrast */
+        }
+
+        .course-details p {
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem; /* Slightly smaller text for details */
+            color: #dcdcdc; /* Lighter color for other texts */
+        }
+
+        .price {
+            color: #28a745; /* Green color for price */
+            font-weight: bold;
+        }
+
+        .cart-item .btn-danger {
+            margin-left: auto;
+            font-size: 0.9rem;
+            background-color: #dc3545; /* Bootstrap danger color */
+            border: none; /* Remove border */
+        }
+
+        .cart-item .btn-danger:hover {
+            background-color: #c82333; /* Darker shade on hover */
+        }
+        .btn-checkout {
+            background-color: #28a745; /* Bootstrap's success green */
+            color: white;
+            font-size: 1.2rem; /* Slightly larger font size */
+            padding: 10px 20px; /* Add padding for a bigger button */
+            border: none;
+            border-radius: 8px; /* Rounded corners */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+            text-transform: uppercase; /* Make the text uppercase */
+            display: inline-block;
+            width: 100%; /* Make button full width */
+        }
+
+        .btn-checkout:hover {
+            background-color: #218838; /* Darker shade of green on hover */
+            transform: scale(1.05); /* Slightly enlarge the button on hover */
+        }
+
+        .total-container {
+            margin-top: 20px; /* Space above total */
+            padding: 15px; /* Padding for total container */
+            background-color: rgba(34, 34, 34, 0.8); /* Semi-transparent background */
+            border-radius: 8px; /* Rounded corners for total */
+            text-align: center; /* Center the text */
+        }
+
+        .total-container h4 {
+            font-size: 1.5rem; /* Larger font for total */
+            font-weight: bold; /* Bold text for emphasis */
+            color: #e7e7e7; /* Light color for contrast */
+        }
+
+        .alert-warning {
+            background-color: rgba(255, 230, 153, 0.8); /* Light yellow for empty cart alert */
+            border-color: #ffeeba;
+            color: #856404; /* Darker text for contrast */
+        }
+    </style>
+</head>
+<body>
+    {% include 'usersPage/header.html' %}
+    <div class="container COURSE-CONTAINER">
+        <h2 class="text-center mb-4">Your Courses Cart</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                {% if data %}
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            {% for course in data %}
+                                <div class="cart-item">
+                                    <img src="{{ course.courseId.courseImg.url }}" alt="{{ course.courseId.courseName }}">
+                                    <div class="course-details">
+                                        <h5 class="fw-bold">{{ course.courseId.courseName }}</h5>
+                                        <p>By: {{ course.courseId.courseBy }}</p>
+                                        <p>Price: <span class="price">₹{{ course.courseId.coursePrice }}/-</span></p>
+                                    </div>
+                                    <a href="{% url 'usersApp:delete' course.id %}" class="btn btn-danger">Delete</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="total-container">
+                        <h4>Total: ₹{{ total }}/-</h4>
+                        <a href="{% url 'usersApp:checkoutCart' %}" class="btn btn-checkout">Checkout ({{ data|length }} courses) </a>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning text-center">
+                        Your cart is empty!
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% include 'usersPage/footer.html' %}
+    <!-- Bootstrap JS Bundle (includes Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

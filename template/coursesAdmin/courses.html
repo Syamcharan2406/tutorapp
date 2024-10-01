@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .card-body {
+            flex: 1;
+        }
+        .concept-container {
+            display: flex;
+            flex-wrap: nowrap; /* Keeps all boxes on a single line */
+            overflow-x: auto; /* Adds horizontal scrolling if necessary */
+            gap: 8px; /* Space between the boxes */
+        }
+
+        .concept-box {
+            flex: 0 0 120px; /* Smaller fixed width for smaller boxes */
+            height: 60px; /* Smaller height for smaller boxes */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 5px; /* Smaller padding for smaller boxes */
+            box-sizing: border-box; /* Includes padding and border in the box size */
+            font-size: 14px; /* Smaller font size for better fit */
+        }
+
+
+        .description {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            {% for course in data %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ course.courseImg.url }}" class="card-img-top" alt="{{ course.courseName }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ course.courseName }}</h5>
+                        <p class="card-text"><strong>By:</strong> {{ course.courserBy }}</p>
+                        <p class="card-text"><strong>Price:</strong> ₹{{ course.coursePrice }}/-</p>
+                        <p class="card-text description">{{ course.courseDescription|slice:":20" }}{% if course.courseDescription|length > 20 %}<a href="#" class="text-primary" data-toggle="modal" data-target="#descriptionModal{{ course.id }}">Read More</a>{% endif %}</p>
+                        <p><strong>Concepts:</strong></p>
+                        <div class="concept-container">
+                            {% for concept in course.conceptList.all %}
+                                <div class="concept-box">
+                                    <p>{{ concept.courseConcept|slice:":20" }}{% if concept.courseConcept|length > 20 %}...{% endif %}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <a href="{% url 'datauploader:update_course' course.id %}" class="btn btn-primary">Update</a>
+                        <a href="{% url 'datauploader:delete_course' course.id %}" class="btn btn-danger" 
+                           onclick="return confirm('Are you sure you want to delete this course?');">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Centered "ADD NEW" button -->
+        <div class="d-flex justify-content-center mt-4">
+            <a href="{% url 'datauploader:course_upload' %}" class="btn btn-primary">ADD NEW</a>
+        </div>
+
+        <!-- Description Modals -->
+        {% for course in data %}
+        <div class="modal fade" id="descriptionModal{{ course.id }}" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel{{ course.id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="descriptionModalLabel{{ course.id }}">{{ course.courseName }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ course.courseDescription }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

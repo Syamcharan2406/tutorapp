@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        @font-face {
+            font-family: 'font';
+            src: url(./myfont.otf);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            height: 200vh;
+            width: 100vw;
+            background-image: url("data:image/svg+xml,%3Csvg width='1512' height='6397' viewBox='0 0 1512 6397' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_243_2)'%3E%3Crect width='1512' height='6397' fill='%230c0c0c' /%3E%3Cg opacity='0.4' filter='url(%23filter0_f_243_2)'%3E%3Cpath d='M387.38 137.553C355.297 -107.774 513.625 -371.892 752.935 -403.188C992.246 -434.485 1087.35 -273.117 1119.44 -27.7906C1151.52 217.536 993.208 -36.6224 796.88 -10.947C557.569 20.3495 419.463 382.88 387.38 137.553Z' fill='%2324cfa7' /%3E%3C/g%3E%3Cg filter='url(%23filter1_f_243_2)'%3E%3Ccircle cx='15' cy='3176' r='185' fill='%2324cfa7' /%3E%3C/g%3E%3Cg filter='url(%23filter2_f_243_2)'%3E%3Ccircle cx='1275' cy='840' r='64' fill='%2324cfa7' /%3E%3C/g%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f_243_2' x='239.258' y='-551.062' width='1028.33' height='917.31' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix' /%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' /%3E%3CfeGaussianBlur stdDeviation='72' result='effect1_foregroundBlur_243_2' /%3E%3C/filter%3E%3Cfilter id='filter1_f_243_2' x='-774' y='2387' width='1578' height='1578' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix' /%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' /%3E%3CfeGaussianBlur stdDeviation='302' result='effect1_foregroundBlur_243_2' /%3E%3C/filter%3E%3Cfilter id='filter2_f_243_2' x='967' y='532' width='616' height='616' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix' /%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' /%3E%3CfeGaussianBlur stdDeviation='122' result='effect1_foregroundBlur_243_2' /%3E%3C/filter%3E%3CclipPath id='clip0_243_2'%3E%3Crect width='1512' height='6397' fill='white' /%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+            background-position: top;
+            background-size: cover;
+            background-repeat: no-repeat;
+            overflow-x: hidden;
+        }
+
+        .card {
+        display: flex;
+        flex-direction: column;
+        height: 600px; /* Adjust height if necessary */
+        width: 340px;
+        background-color: #2C2C2C;
+        border-radius: 0.5rem;
+        color: #ffffff;
+        overflow: hidden;
+        margin-bottom: 30px; /* Increased margin to add spacing between cards */
+    }
+        .course {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        #black {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            padding-top: 10px;
+            background-color: #000;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .concept-container {
+            overflow: hidden;
+            position: relative;
+            display: flex;
+        }
+
+        .concept-content {
+            display: flex;
+            animation: scroll-loop 15s linear infinite;
+        }
+
+        @keyframes scroll-loop {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .concept-content::after {
+            content: attr(data-content);
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .concept-text {
+            height: 40px;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            border-radius: 8px;
+            color: #f1f1f1;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+
+        .card-img-top {
+        height: 50%; /* Increase the height */
+        width: 100%;
+        object-fit: cover;
+        background-color: #f1f1f1;
+    }
+
+
+        .div-enroll-now {
+        width: 340px;
+        padding-bottom: 20px; /* Adds space at the bottom of the buttons */
+    }
+
+    .enroll-now {
+        width: 100%;
+        height: 40px;
+        align-content: center;
+    }
+
+    .div-enroll-now>a {
+        font-size: 20px;
+        color: #000;
+        font-weight: bold;
+    }
+    .btn-add-to-cart {
+        background-color: #FFA500; /* Yellow-orange color */
+        border-color: #FFA500;
+        color: #fff;
+        width: 340px; /* Full width for the button */
+        margin-top: 10px; /* Spacing between the buttons */
+    }
+
+    .btn-add-to-cart:hover {
+        background-color: #FF8C00; /* Darker yellow-orange on hover */
+        border-color: #FF8C00;
+    }
+
+
+    .description {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+    }
+
+    .read-more {
+        color: #007bff;
+        cursor: pointer;
+    }
+
+    .read-more:hover {
+        text-decoration: underline;
+    }
+
+    .btn {
+        font-size: 14px;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    </style>
+</head>
+
+<body>
+    {% include 'usersPage/header.html' %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            {% for course in data %}
+            <div class="col-md-4 mb-4" class="course">
+                <div class="card">
+                    <img src="{{ course.courseImg.url }}" class="card-img-top" alt="{{ course.courseName }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ course.courseName }}</h5>
+                        <p class="card-text description">
+                            {{ course.courseDescription|slice:":40" }}
+                            {% if course.courseDescription|length > 40 %}
+                            <span id="dots">...</span>
+                            <a href="#" class="text-primary read-more" data-toggle="modal"
+                                data-target="#descriptionModal{{ course.id }}">Read More</a>
+                            {% endif %}
+                        </p>
+                        <p><strong>Concepts:</strong></p>
+                        <div class="concept-container">
+                            <div class="concept-content">
+                                {% for concept in course.conceptList.all %}
+                                <p class="concept-text">{{ concept.courseConcept|slice:":20" }}{% if concept.courseConcept|length > 20 %}...{% endif %}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="black">
+                        <p class="card-text"><strong>By:</strong> {{ course.courseBy }}</p>
+                        <p class="card-text"><strong>Price:</strong> ₹{{ course.coursePrice }}/-</p>
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-3 div-enroll-now">
+                    {% if course.id in enroll_list %}
+                    <a href="{% url 'usersApp:enrolledcourses' %}" class="btn btn-add-to-cart">Go to Enrolled Courses</a>
+                    {% else %}
+                    <a href="{% url 'usersApp:checkoutSingle' course.id %}" class="btn btn-add-to-cart">Enroll Now</a>
+                    {% endif %} 
+                    {% if course.id in cart_list %}
+                    <a href="{% url 'usersApp:cart' %}" class="btn btn-add-to-cart">Go to Cart</a>
+                    {% elif course.id in enroll_list %}
+                    <a href="{% url 'usersApp:enrolledcourses' %}" class="btn btn-add-to-cart">Already Enrolled</a>
+                    {% else %}
+                    <a href="{% url 'usersApp:AddToCart' course.id %}" class="btn btn-add-to-cart">Add to Cart</a>
+                    {% endif %}
+                    
+                </div>
+                
+                
+            </div>
+
+            <div class="modal fade" id="descriptionModal{{ course.id }}" tabindex="-1" role="dialog"
+                aria-labelledby="descriptionModalLabel{{ course.id }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="descriptionModalLabel{{ course.id }}">Full Description</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{ course.courseDescription }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'usersPage/footer.html' %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

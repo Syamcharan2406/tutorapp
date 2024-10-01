@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .checkout-container {
+            margin-top: 50px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-details {
+            margin-bottom: 30px;
+        }
+
+        .course-details h5 {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .course-details p {
+            font-size: 1rem;
+        }
+
+        .total-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .discount-container {
+            margin-top: 20px;
+        }
+
+        .discount-container input {
+            max-width: 300px;
+        }
+
+        .btn-checkout {
+            background-color: #007bff;
+            color: #fff;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .btn-checkout:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    {% include 'usersPage/header.html' %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="checkout-container">
+                    <h2 class="text-center mb-4">Checkout</h2>
+
+                    {% for course in data %}
+                    <div class="course-details">
+                        {% if course.courseId %}
+                            <h5>{{ course.courseId.courseName }}</h5>
+                            <p>Price: ₹{{ course.courseId.coursePrice }}/-</p>
+                        {% else %}
+                            <h5>{{ course.courseName }}</h5>
+                            <p>Price: ₹{{ course.coursePrice }}/-</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="total-price">
+                        Total: ₹{{ total }}/-
+                    </div>
+
+                    <div class="discount-container">
+                        <label for="discountCode" class="form-label">Enter Discount Code</label>
+                        <input type="text" id="discountCode" class="form-control" placeholder="Enter code here">
+                    </div>
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <button type="submit">proceed to Enroll</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'usersPage/footer.html' %}
+    <!-- Bootstrap JS Bundle (includes Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
