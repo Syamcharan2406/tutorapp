@@ -53,7 +53,7 @@
                     <img src="{{ course.courseImg.url }}" class="card-img-top" alt="{{ course.courseName }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ course.courseName }}</h5>
-                        <p class="card-text"><strong>By:</strong> {{ course.courserBy }}</p>
+                        <p class="card-text"><strong>By:</strong> {{ course.courseBy }}</p>
                         <p class="card-text"><strong>Price:</strong> ₹{{ course.coursePrice }}/-</p>
                         <p class="card-text description">{{ course.courseDescription|slice:":20" }}{% if course.courseDescription|length > 20 %}<a href="#" class="text-primary" data-toggle="modal" data-target="#descriptionModal{{ course.id }}">Read More</a>{% endif %}</p>
                         <p><strong>Concepts:</strong></p>
