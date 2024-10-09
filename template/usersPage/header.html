@@ -1,15 +1,15 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-2">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="{% url 'usersApp:home' %}"> <!-- Added d-flex and align-items-center -->
-            <img src="{% static 'images/logo.png' %}" alt="Logo" class="me-2" style="height: 30px;"> <!-- Logo image -->
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'usersApp:home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" class="me-2" style="height: 30px;">
             CodeCrafters
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link px-2" href="{% url 'usersApp:home' %}">Home</a>
                 </li>
@@ -23,7 +23,7 @@
                     <a class="nav-link px-2" href="{% url 'usersApp:cart' %}">Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-2" href="{% url 'usersApp:account' %}">Account</a> <!-- Fixed closing tag -->
+                    <a class="nav-link px-2" href="{% url 'usersApp:account' %}">Account</a>
                 </li>
             </ul>
         </div>

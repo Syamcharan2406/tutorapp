@@ -13,7 +13,8 @@ class CourseForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'conceptList': forms.CheckboxSelectMultiple(),
-            'courseDescription' : forms.Textarea(attrs={'rows' : 5,'cols':180})
+            'courseDescription': forms.Textarea(attrs={'rows': 5, 'class': 'form-control'})
         }
+
 
 
