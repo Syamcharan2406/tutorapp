@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import AbstractUser
 
 
@@ -23,7 +23,7 @@ class CourseConcepts(models.Model):
 
 class Courses(models.Model):
     courseName = models.CharField(max_length=60)
-    courseImg = models.ImageField(upload_to='images/')
+    courseImg = CloudinaryField('image', folder='courses')
     courseBy = models.CharField(max_length=60)
     coursePrice = models.IntegerField()
     courseDescription = models.CharField(max_length=400)

@@ -1,6 +1,6 @@
 from django import forms
 from .models import CourseConcepts, Courses
-
+from cloudinary.forms import CloudinaryFileField
 
 class CourseConceptsForm(forms.ModelForm):
     class Meta:
@@ -8,6 +8,7 @@ class CourseConceptsForm(forms.ModelForm):
         fields = '__all__'
 
 class CourseForm(forms.ModelForm):
+    courseImg = CloudinaryFileField()
     class Meta:
         model = Courses
         fields = '__all__'
