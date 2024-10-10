@@ -13,7 +13,7 @@ def register_view(request):
             return redirect('usersApp:login')  
     else:
         form = CustomUserRegistrationForm()
-    return render(request, 'userspage/signup.html', {'form': form})
+    return render(request, 'usersPage/signup.html', {'form': form})
 
 def loginHere(request):
     form  = UserLoginForm()
@@ -27,7 +27,7 @@ def loginHere(request):
             return HttpResponse('please correct details')
         return HttpResponse('please fill all details')
     form  = UserLoginForm()
-    return render(request,'userspage/login.html',{'form':form})
+    return render(request,'usersPage/login.html',{'form':form})
 
 def logoutHere(request):
     logout(request)
