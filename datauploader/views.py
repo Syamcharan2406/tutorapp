@@ -11,7 +11,7 @@ def CourseUpload(request):
         f1 = CourseForm(request.POST, request.FILES)
         if f1.is_valid():
             f1.save()
-            return HttpResponse("Course submitted successfully")
+            return redirect('datauploader:course_list')
     return render(request, 'coursesAdmin/courseUpload.html', {'form': f})
 
 
@@ -25,7 +25,7 @@ def conceptUpload(request):
         f1 = CourseConceptsForm(request.POST)
         if f1.is_valid():
             f1.save()
-            return redirect('datauploader:concept_upload')
+            return redirect('datauploader:concept_list')
     return render(request, 'coursesAdmin/conceptUpload.html', {'form': f})
 
 

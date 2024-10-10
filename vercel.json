@@ -1,0 +1,24 @@
+{
+    "builds": [
+      {
+        "src": "tutorapp/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "tutorapp/wsgi.py"
+      }
+    ],
+    "env": {
+      "CLOUDINARY_URL": "cloudinary://532547551576132:r8nfIaH4D0WzNkZKVLcbqW-7p6o@dnfyudpx5",
+      "DB_NAME": "railway",
+      "DB_USER": "postgres",
+      "DB_PASSWORD": "rXbdoDNnHrUBghsqWnsrnWjduDAPTbGn",
+      "DB_HOST": "autorack.proxy.rlwy.net",
+      "DB_PORT": "43154",
+      "SECRET_KEY": "django-insecure-i26^9h%1v28f8&*7nch6um%vh9-g+_+a17n3_e2_l!qa+w7-xk"
+    }
+  }
+  
