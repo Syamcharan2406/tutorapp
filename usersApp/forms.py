@@ -20,7 +20,7 @@ class CustomUserRegistrationForm(UserCreationForm):
         model = CustomUser
         fields = [
             'username', 'first_name', 'middle_name', 'last_name', 'age', 
-            'number', 'occupation', 'email', 'password1', 'password2'
+            'number', 'occupation', 'email', 'password1', 'password2','city',
         ]
 
     def clean_email(self):
