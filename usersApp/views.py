@@ -31,23 +31,31 @@ def loginHere(request):
 
 def logoutHere(request):
     logout(request)
-    return redirect('usersApp:login')
+    return redirect('usersApp:home')
 
 
-@login_required(login_url='usersApp:login')
+
 def homeView(request):
+    enrolled_courses = []
+    if request.user.is_authenticated:
+        enroll_items = EnroledCourses.objects.filter(userId=request.user)
+        enrolled_courses = [item.courseId.id for item in enroll_items]
+        
     randomCourses = Courses.objects.order_by('?')[:3]
-    return render(request,'usersPage/home.html',{'data':randomCourses})
+    return render(request,'usersPage/home.html',{'data':randomCourses,'enroll_list':enrolled_courses})
 
 
 
 
-@login_required(login_url='usersApp:login')
+
 def coursesView(request):
-    cart_items = CoursesCart.objects.filter(userId=request.user)
-    enroll_items = EnroledCourses.objects.filter(userId=request.user)
-    enrolled_courses = [item.courseId.id for item in enroll_items]
-    cart_courses = [item.courseId.id for item in cart_items]
+    enrolled_courses = []
+    cart_courses = []
+    if request.user.is_authenticated:
+        cart_items = CoursesCart.objects.filter(userId=request.user)
+        enroll_items = EnroledCourses.objects.filter(userId=request.user)
+        enrolled_courses = [item.courseId.id for item in enroll_items]
+        cart_courses = [item.courseId.id for item in cart_items]
     data = Courses.objects.all()
     return render(request,'usersPage/courses.html',{ 'data':data,'cart_list':cart_courses,'enroll_list':enrolled_courses})
 
@@ -157,3 +165,8 @@ def checkoutSingleCourses(request,id):
 
         return redirect('usersApp:enrolledcourses')
     return render(request,'usersPage/checkoutPage.html',context=context)
+
+
+# ---------------------------------------------------- APIVIEWS-----------------------------------------------
+
+

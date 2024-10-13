@@ -238,17 +238,21 @@
                     </div>
                 </div>
                 <div class="d-flex flex-column align-items-center mt-3 div-enroll-now">
-                    {% if course.id in enroll_list %}
-                    <a href="{% url 'usersApp:enrolledcourses' %}" class="btn btn-add-to-cart">Go to Enrolled Courses</a>
+                    {% if request.user.is_authenticated %}
+                        {% if course.id in enroll_list %}
+                        <a href="{% url 'usersApp:enrolledcourses' %}" class="btn btn-add-to-cart">Go to Enrolled Courses</a>
+                        {% else %}
+                        <a href="{% url 'usersApp:checkoutSingle' course.id %}" class="btn btn-add-to-cart">Enroll Now</a>
+                        {% endif %} 
+                        {% if course.id in cart_list %}
+                        <a href="{% url 'usersApp:cart' %}" class="btn btn-add-to-cart">Go to Cart</a>
+                        {% elif course.id in enroll_list %}
+                        <a href="{% url 'usersApp:enrolledcourses' %}" class="btn btn-add-to-cart">Already Enrolled</a>
+                        {% else %}
+                        <a href="{% url 'usersApp:AddToCart' course.id %}" class="btn btn-add-to-cart">Add to Cart</a>
+                        {% endif %}
                     {% else %}
-                    <a href="{% url 'usersApp:checkoutSingle' course.id %}" class="btn btn-add-to-cart">Enroll Now</a>
-                    {% endif %} 
-                    {% if course.id in cart_list %}
-                    <a href="{% url 'usersApp:cart' %}" class="btn btn-add-to-cart">Go to Cart</a>
-                    {% elif course.id in enroll_list %}
-                    <a href="{% url 'usersApp:enrolledcourses' %}" class="btn btn-add-to-cart">Already Enrolled</a>
-                    {% else %}
-                    <a href="{% url 'usersApp:AddToCart' course.id %}" class="btn btn-add-to-cart">Add to Cart</a>
+                    <a class="btn btn-add-to-cart" href="{% url 'usersApp:login' %}">Login to Enroll</a>
                     {% endif %}
                 </div>
             </div>

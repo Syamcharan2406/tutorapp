@@ -117,7 +117,15 @@
                             <p class="card-text">{{ course.courseDescription }}</p>
                         </div>
                         <div class="card-footer">
-                            <a href="{% url 'usersApp:checkoutSingle' course.id %}" class="btn btn-light">Enroll Now</a>
+                            {% if request.user.is_authenticated %}
+                                {% if course.id in enroll_list %}
+                                    <a href="{% url 'usersApp:enrolledcourses' %}" class="btn btn-light">Enrolled</a>
+                                {% else %}
+                                    <a href="{% url 'usersApp:checkoutSingle' course.id %}" class="btn btn-light">Enroll Now</a>
+                                {% endif %}
+                            {% else %}
+                            <a href="{% url 'usersApp:login' %}" class="btn btn-light">Login to Enroll</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
