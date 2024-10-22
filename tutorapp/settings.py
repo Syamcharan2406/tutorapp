@@ -33,8 +33,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',  # React local development server
+    'http://localhost:5173',"https://codecrafters-nine.vercel.app"  # React local development server
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
