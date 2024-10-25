@@ -66,7 +66,7 @@ def addToCartView(request,id):
     cartCourse,created = CoursesCart.objects.get_or_create(userId=request.user,courseId=course)
     if  created:
         cartCourse.save()
-        return redirect('usersApp:User_courses')
+        return redirect('usersApp:cart')
     else:
         
         return redirect('usersApp:User_courses')
