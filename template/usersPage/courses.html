@@ -124,7 +124,7 @@
                             {% if course.id in cart_list %}
                             <a href="{% url 'usersApp:cart' %}" class="btn btn-secondary w-100">Go to Cart</a>
                             {% elif course.id not in enroll_list%}
-                            <a href="{% url 'usersApp:addToCartView' %}" class="btn btn-secondary w-100">Add to Cart</a>
+                            <a href="{% url 'usersApp:AddToCart' %}" class="btn btn-secondary w-100">Add to Cart</a>
                             {% endif %}
                         {% else %}
                         <a class="btn btn-primary w-100" href="{% url 'usersApp:login' %}">Login to Enroll</a>
