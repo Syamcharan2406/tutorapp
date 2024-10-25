@@ -1,35 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Course</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <header class="py-3" style="background-color: black;">
-        {% include 'usersPage/header.html' %}
-    </header>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Course</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+            background-color: black;
+            min-height: 100vh;
+            width: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='1512' height='6397' viewBox='0 0 1512 6397' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_243_2)'%3E%3Crect width='1512' height='6397' fill='%230c0c0c' /%3E%3Cg opacity='0.4' filter='url(%23filter0_f_243_2)'%3E%3Cpath d='M387.38 137.553C355.297 -107.774 513.625 -371.892 752.935 -403.188C992.246 -434.485 1087.35 -273.117 1119.44 -27.7906C1151.52 217.536 993.208 -36.6224 796.88 -10.947C557.569 20.3495 419.463 382.88 387.38 137.553Z' fill='%2324cfa7' /%3E%3C/g%3E%3Cg filter='url(%23filter1_f_243_2)'%3E%3Ccircle cx='15' cy='3176' r='185' fill='%2324cfa7' /%3E%3C/g%3E%3Cg filter='url(%23filter2_f_243_2)'%3E%3Ccircle cx='1275' cy='840' r='64' fill='%2324cfa7' /%3E%3C/g%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f_243_2' x='239.258' y='-551.062' width='1028.33' height='917.31' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix' /%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' /%3E%3CfeGaussianBlur stdDeviation='72' result='effect1_foregroundBlur_243_2' /%3E%3C/filter%3E%3Cfilter id='filter1_f_243_2' x='-774' y='2387' width='1578' height='1578' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix' /%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' /%3E%3CfeGaussianBlur stdDeviation='302' result='effect1_foregroundBlur_243_2' /%3E%3C/filter%3E%3Cfilter id='filter2_f_243_2' x='967' y='532' width='616' height='616' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix' /%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' /%3E%3CfeGaussianBlur stdDeviation='122' result='effect1_foregroundBlur_243_2' /%3E%3C/filter%3E%3CclipPath id='clip0_243_2'%3E%3Crect width='1512' height='6397' fill='white' /%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+            background-position: top;
+            background-size: cover;
+            background-repeat: no-repeat;
+            overflow-x: hidden;
+            color: white;
+        }
     
-    <div class="container-fluid mt-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8 col-sm-12">
-                <form action="" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            
-        </div>
-    </div>
+        .d-flex.gap-2 button {
+            width: 100%;
+            margin: 5px 0;
+        }
     
-    <footer class="py-3" style="background-color: black;">
-        {% include 'usersPage/footer.html' %}
-    </footer>
+        .card {
+            background-color: #0e171f !important; /* Force the background color */
+            color: white !important;
+            border-radius: 8px !important;
+        }
+    .scrollable-checkbox-list {
+      max-height: 200px; /* Set the max height for the scrollable area */
+      overflow-y: auto; /* Enable vertical scrolling */
+      border: 1px solid #ddd; /* Optional: border to visually separate the scroll area */
+      padding: 10px;
+    }
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </style>
+</head>
+<body class="bg-light">
+    <header class="py-3">
+        {% include 'coursesAdmin/header.html' %}
+        </header>
+  <div class="container my-5">
+    <h2 class="mb-4">Add Course</h2>
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.courseName.label_tag }}
+        {{ form.courseName }}
+      </div>
+      <div class="form-group">
+        {{ form.courseImg.label_tag }}
+        {{ form.courseImg }}
+      </div>
+      <div class="form-group">
+        {{ form.courseBy.label_tag }}
+        {{ form.courseBy }}
+      </div>
+      <div class="form-group">
+        {{ form.coursePrice.label_tag }}
+        {{ form.coursePrice }}
+      </div>
+      <div class="form-group">
+        {{ form.courseDescription.label_tag }}
+        {{ form.courseDescription }}
+      </div>
+      <div class="form-group">
+        {{ form.conceptList.label_tag }}
+        <div class="scrollable-checkbox-list">
+          {{ form.conceptList }}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Course</button>
+    </form>
+  </div>
+  <footer class="py-3 text-center" style="color:white">
+    {% include 'usersPage/footer.html' %}
+</footer>
 </body>
 </html>
