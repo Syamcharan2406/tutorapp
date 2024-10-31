@@ -1,14 +1,14 @@
 {% for user in object_list %}
 <tr>
-    <td data-label="Username">{{ user.username }}</td>
-    <td data-label="First Name">{{ user.first_name }}</td>
-    <td data-label="Middle Name">{{ user.middle_name }}</td>
-    <td data-label="Last Name">{{ user.last_name }}</td>
-    <td data-label="Email">{{ user.email }}</td>
-    <td data-label="Phone">{{ user.phone }}</td>
-    <td data-label="Age">{{ user.age }}</td>
-    <td data-label="City">{{ user.city }}</td>
-    <td data-label="Occupation">{{ user.occupation }}</td>
+    <td data-label="Username">{{ user.username|default:"-" }}</td>
+    <td data-label="First Name">{{ user.first_name|default:"-" }}</td>
+    <td data-label="Middle Name">{{ user.middle_name|default:"-" }}</td>
+    <td data-label="Last Name">{{ user.last_name|default:"-" }}</td>
+    <td data-label="Email">{{ user.email|default:"-" }}</td>
+    <td data-label="Phone">{{ user.phone|default:"-" }}</td>
+    <td data-label="Age">{{ user.age|default:"-" }}</td>
+    <td data-label="City">{{ user.city|default:"-" }}</td>
+    <td data-label="Occupation">{{ user.occupation|default:"-" }}</td>
     <td data-label="Active">
         <span class="badge {% if user.is_active %}badge-success{% else %}badge-danger{% endif %}">
             <i class="fas {% if user.is_active %}fa-check{% else %}fa-times{% endif %}"></i>
@@ -24,8 +24,8 @@
             <i class="fas {% if user.is_superuser %}fa-check{% else %}fa-times{% endif %}"></i>
         </span>
     </td>
-    <td data-label="Date Joined">{{ user.date_joined }}</td>
-    <td data-label="Last Login">{{ user.last_login }}</td>
+    <td data-label="Date Joined">{{ user.date_joined|default:"-" }}</td>
+    <td data-label="Last Login">{{ user.last_login|default:"-" }}</td>
     <td data-label="Actions">
         <div class="btn-group">
             <a href="{% url 'datauploader:edit-user' user.id %}" class="btn btn-primary btn-sm">Edit <i class="fas fa-edit"></i></a>
