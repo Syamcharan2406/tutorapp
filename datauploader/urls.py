@@ -12,6 +12,7 @@ urlpatterns = [
     path('concept/delete/<int:id>/', delete_concept, name='delete_concept'),
     path('concepts/', concept_list, name='concept_list'),
     path('users/', UsersData.as_view(), name='user_list'),
+    path('ajax-user-search/', ajax_user_search, name='ajax-user-search'),
     path('user/<int:pk>/edit/', UserUpdateView.as_view(), name='edit-user'),
     path('user/<int:pk>/delete/', UserDeleteView.as_view(), name='delete-user'),
     path('user/add/', UserCreateView.as_view(), name='add-user'),

@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
+from django.http import JsonResponse
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 class StaffRequiredMixin(UserPassesTestMixin):
     def test_func(self):
@@ -80,15 +83,66 @@ def delete_concept(request, id):
         return redirect('datauploader:concept_list')
     return render(request, 'coursesAdmin/confirm_delete_concept.html', {'concept': concept})
 
-
-class UsersData(ListView,StaffRequiredMixin,LoginRequiredMixin):
+class UsersData(ListView, StaffRequiredMixin, LoginRequiredMixin):
     model = CustomUser
     template_name = 'coursesAdmin/userDetails.html'
     paginate_by = 10
     
     def get_queryset(self):
         return CustomUser.objects.all().order_by('-date_joined')
+
+@login_required(login_url='myapp:login')
+@user_passes_test(lambda user: user.is_staff)
+def ajax_user_search(request):
+    query = request.GET.get('q', '')
+    page = request.GET.get('page', 1)
     
+    if query:
+        users = CustomUser.objects.filter(
+            Q(username__icontains=query) |
+            Q(email__icontains=query) |
+            Q(number__icontains=query) |
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query) |
+            Q(city__icontains=query) |
+            Q(occupation__icontains=query)
+        ).order_by('-date_joined')
+    else:
+        users = CustomUser.objects.all().order_by('-date_joined')
+    
+    paginator = Paginator(users, 10)  # 10 users per page
+    try:
+        users_page = paginator.page(page)
+    except:
+        users_page = paginator.page(1)
+    
+    user_list = []
+    for user in users_page:
+        user_list.append({
+            'id': user.id,
+            'username': user.username,
+            'first_name': user.first_name or "-",
+            'middle_name': user.middle_name or "-",
+            'last_name': user.last_name or "-",
+            'email': user.email or "-",
+            'phone': user.number or "-",
+            'age': user.age or "-",
+            'city': user.city or "-",
+            'occupation': user.occupation or "-",
+            'is_active': user.is_active,
+            'is_staff': user.is_staff,
+            'is_superuser': user.is_superuser,
+            'date_joined': user.date_joined.strftime("%d-%m-%Y %H:%M"),
+            'last_login': user.last_login.strftime("%d-%m-%Y %H:%M") if user.last_login else "-"
+        })
+    
+    return JsonResponse({
+        'users': user_list,
+        'total_pages': paginator.num_pages,
+        'current_page': users_page.number,
+        'has_next': users_page.has_next(),
+        'has_previous': users_page.has_previous()
+    })
 
 
 class UserCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
