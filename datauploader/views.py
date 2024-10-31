@@ -11,6 +11,8 @@ from django.contrib.auth.hashers import make_password
 from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.template.loader import render_to_string
+
 
 class StaffRequiredMixin(UserPassesTestMixin):
     def test_func(self):
@@ -90,13 +92,14 @@ class UsersData(ListView, StaffRequiredMixin, LoginRequiredMixin):
     
     def get_queryset(self):
         return CustomUser.objects.all().order_by('-date_joined')
-
+    
+    
 @login_required(login_url='myapp:login')
 @user_passes_test(lambda user: user.is_staff)
 def ajax_user_search(request):
     query = request.GET.get('q', '')
     page = request.GET.get('page', 1)
-    
+
     if query:
         users = CustomUser.objects.filter(
             Q(username__icontains=query) |
@@ -109,41 +112,23 @@ def ajax_user_search(request):
         ).order_by('-date_joined')
     else:
         users = CustomUser.objects.all().order_by('-date_joined')
-    
+
     paginator = Paginator(users, 10)  # 10 users per page
     try:
         users_page = paginator.page(page)
     except:
         users_page = paginator.page(1)
-    
-    user_list = []
-    for user in users_page:
-        user_list.append({
-            'id': user.id,
-            'username': user.username,
-            'first_name': user.first_name or "-",
-            'middle_name': user.middle_name or "-",
-            'last_name': user.last_name or "-",
-            'email': user.email or "-",
-            'phone': user.number or "-",
-            'age': user.age or "-",
-            'city': user.city or "-",
-            'occupation': user.occupation or "-",
-            'is_active': user.is_active,
-            'is_staff': user.is_staff,
-            'is_superuser': user.is_superuser,
-            'date_joined': user.date_joined.strftime("%d-%m-%Y %H:%M"),
-            'last_login': user.last_login.strftime("%d-%m-%Y %H:%M") if user.last_login else "-"
-        })
-    
+
+    # Render the HTML for the user rows
+    user_rows_html = render_to_string('coursesAdmin/table_rows.html', {'object_list': users_page})
+
     return JsonResponse({
-        'users': user_list,
+        'user_rows': user_rows_html,  # Returning the rendered HTML instead of user list
         'total_pages': paginator.num_pages,
         'current_page': users_page.number,
         'has_next': users_page.has_next(),
         'has_previous': users_page.has_previous()
     })
-
 
 class UserCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
     model = CustomUser
