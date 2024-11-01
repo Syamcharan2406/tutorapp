@@ -12,9 +12,15 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
+
+env = environ.Env()
+environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -95,11 +101,11 @@ WSGI_APPLICATION = 'tutorapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'railway'),
-        'USER': os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'rXbdoDNnHrUBghsqWnsrnWjduDAPTbGn'),
-        'HOST': os.getenv('DB_HOST', 'autorack.proxy.rlwy.net'),
-        'PORT': os.getenv('DB_PORT', '43154'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
 
@@ -149,15 +155,15 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dnfyudpx5',
-    'API_KEY': '532547551576132',
-    'API_SECRET': 'r8nfIaH4D0WzNkZKVLcbqW-7p6o'
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
 }
 
 cloudinary.config(
-    cloud_name = CLOUDINARY_STORAGE['CLOUD_NAME'],
-    api_key = CLOUDINARY_STORAGE['API_KEY'],
-    api_secret = CLOUDINARY_STORAGE['API_SECRET']
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET']
 )
 
 
